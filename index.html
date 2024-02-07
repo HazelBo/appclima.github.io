@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <title>Aplicacion del tiempo</title>
+</head>
+
+<body>
+    <audio autoplay muted id="myAudio">
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <a target="_blank" href="https://www.google.com/maps/place/El+Tigre+6050,+Anzo%C3%A1tegui/data=!4m2!3m1!1s0x8dcd817e1043b5b7:0x5c5f23ae4dc752d9?sa=X&ved=2ahUKEwiLkYmH-ZmEAxW4bDABHa8JD5AQ8gF6BAgPEAA">
+            <div class="left-info">
+                <div class="pic-gradient"></div>
+                <div class="today-info">
+                    <h2 id="diaSemana">Viernes</h2>
+                    <span id="fechaActual">07 Feb 2024</span>
+                    <div>
+                        <i class='bx bx-current-location'></i>
+                        <span>El Tigre, VE</span>
+                    </div>
+                </div>
+                <div class="today-weather">
+                    <i class='bx bx-sun'></i>
+                    <h1 class="weather-temp">
+                        32°C
+                    </h1>
+                    <h3>Soleado</h3>
+                </div>
+            </div>
+        </a>
+
+        <div class="right-info">
+            <div class="day-info">
+                <div>
+                    <span class="title">PRECIPITACIÓN</span>
+                    <span class="value">4 %</span>
+                </div>
+                <div>
+                    <span class="title">HUMEDAD</span>
+                    <span class="value">34 %</span>
+                </div>
+                <div>
+                    <span class="title">VELOCIDAD DEL VIENTO</span>
+                    <span class="value">6 km/h</span>
+                </div>
+            </div>
+
+            <ul class="days-list">
+                <li>
+                    <i class='bx bx-cloud'></i>
+                    <span id="dia1">Sab</span>
+                    <span class="day-temp">30°C</span>
+                </li>
+                <li>
+                    <i class='bx bx-sun'></i>
+                    <span id="dia2">Dom</span>
+                    <span class="day-temp">31°C</span>
+                </li>
+                <li>
+                    <i class='bx bx-cloud-rain'></i>
+                    <span id="dia3">Lun</span>
+                    <span class="day-temp">28°C</span>
+                </li>
+                <li>
+                    <i class='bx bx-cloud-drizzle'></i>
+                    <span id="dia4">Mar</span>
+                    <span class="day-temp">30°C</span>
+                </li>
+            </ul>
+
+            <div class="btn-container">
+                <a href="https://www.youtube.com/watch?v=wun_K6Lo-t4&autoplay=1" target="_blank">
+                    <button class="loc-button">Información</button>
+                </a>
+                <a target="_blank" href="contacto.html">
+                    <button class="loc-button">Contactar Programador</button>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+<script>
+
+    let fecha = new Date();
+    let nombresMeses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    let nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
+    // Obtener el día, el mes y el año
+    let dia = fecha.getDate();
+    let mes = nombresMeses[fecha.getMonth()]; // Los meses en JavaScript empiezan desde 0
+    let año = fecha.getFullYear();
+
+    // Obtener el día de la semana
+    let diaSemana = fecha.getDay();
+
+    // Agregar cero al dia si es menor que 10
+    if (dia < 10) dia = '0' + dia;
+
+    // Concatenar las fechas
+    let fechaFormateada = dia + ' ' + mes + ', ' + año;
+
+    // Mostrar la fecha en el span
+    document.getElementById('fechaActual').textContent = fechaFormateada;
+
+    // Mostrar el día en el h2
+    document.getElementById('diaSemana').textContent = nombresDias[diaSemana];
+
+    // Mostrar los dias en los span "Dia"
+    for (let i = 1; i <= 4; i++) {
+        let diaSiguiente = (diaSemana + i) % 7; // Usar el operador módulo para "dar la vuelta" a la semana
+        document.getElementById('dia' + i).textContent = nombresDias[diaSiguiente];
+    }
+
+    // Obtener el elemento de audio
+    let audio = document.getElementById('myAudio');
+
+    // Desactivar el silencio después de que la página se haya cargado
+    window.addEventListener('load', function() {
+        // Preguntar al usuario si desea reproducir el audio
+        let respuesta = confirm('¿Deseas reproducir el audio?');
+
+        // Si el usuario acepta, desactivar el silencio y ajustar el volumen
+        if (respuesta) {
+            audio.muted = false;
+            audio.volume = 0.02;
+        }
+    });
+
+</script>
+
+</html>
